@@ -1,0 +1,43 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MC-CE</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Minecraft Hut</h1>
+    <ul id="nav">
+		<li><a href="index.html">Главная</a></li>
+		<li><a href="login.html">Регистрация/Вход</a></li>
+		<li><a href="maps_passing.html">Сервер "Passing Maps"</a></li>
+		<li class="selected"><a href="empire_wars.html">Сервер "Empire Wars"</a></li>
+        <li><a href="new_clan.html">Создать клан</a></li>
+    </ul>
+	<div id="main">
+        <h2>Empire Wars</h2>
+        <p>
+            В данном режиме вы сможете обживать новые территории или даже <b>захватывать чужие</b>.
+        </p>
+        <p>
+            В отличие от миллиона других, похожих друг на друга серверов, здесь наконец-то не будет скучнейших, абсолютно неинтерактивных приватов, 
+            то-есть серверов, где можно зачарить алмазные доспехи и спокойно выходить после надоевшего пвп на арене или же часов блуждания по миру в надежде найти кого-то не в привате.
+            В этом режиме вы всегда можете выбрать между успешными торговыми отношениями и войной
+        </p>
+
+        <h2>Топ-10 кланы</h2>
+        По
+        <select id="top-sort-select">
+        </select>
+
+        <table id="top-table">
+        </table>
+
+        <script type="module" src="empire_wars.js">
+        </script>
+
+    </div>
+</body>
+</html>
