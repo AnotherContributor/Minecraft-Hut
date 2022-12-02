@@ -1,5 +1,5 @@
 body {
-    background: #000 url(Background.png) no-repeat center fixed;
+    background: #000 url(https://fr-minecraft.net/upload/wallpapers/images/fr-minecraft_wallpaper_TIID.png) no-repeat center fixed;
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 20px;
     color: azure;
@@ -7,12 +7,13 @@ body {
 }
 
 div#main {
+
     margin: auto;
     padding: 20px 60px 20px 60px;
     width: 90%;
     min-width: 300px;
     max-width: 1170px; 
-    background-color: rgb(0,0,0, 0.8);
+    background-color: rgba(20,20,20, 0.92);
     border-radius: 10px;
 }
 
@@ -27,9 +28,6 @@ p {
     margin: 10px;
 }
 
-
-
-
 h1, h2 {
     font-size: 30px;
     color: azure;
@@ -40,20 +38,19 @@ h1, h2 {
 }
 
 h1 {
-    background-color: rgb(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     font-size: 50px;
 }
 
 ul#nav {
-    padding: 3px;
+    padding: 0px;
     text-align: center;
     margin: 10px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    width: 80%;
-    background-color: rgb(0,0,0,0);
-    border-radius: 30px;
+    width: fit-content;
+    background-color: rgba(20,20,20, 0.92);
     margin: 30px auto 30px auto;
     font-size: 20px;
     min-width: 850px;
@@ -68,20 +65,27 @@ ul#nav a {
 }
 
 ul#nav li.selected {
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(40, 40, 40);
+}
+
+.button, table, form {
+    border-radius: 5px;
 }
 
 .button, ul#nav li, table, form {
-    white-space: nowrap;
     padding: 0px 3px 3px 3px;
-    border: 1px solid rgb(0,0,0);
-    border-radius: 5px;
-    background-color: rgb(50,50,50);
+    border: 1px solid rgb(80,80,80);
 }
 
+
+
+/*border: 1px solid rgb(20,20,20);*/
+/*background-color: rgba(0,0,0, 0.99);!*rgb(50,50,50);*!*/
+
 ul#nav li {
-   border-radius: 30px;
+    white-space: nowrap;
    padding: 10px;
+    background-color: rgba(0,0,0, 0.99);/*rgb(50,50,50);*/
 }
 
 form {
@@ -108,6 +112,16 @@ ol.center li
 }
 
 h2 {
-    background-color: rgb(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin: auto;
+    width: max-content;
+    text-align: center;
+}

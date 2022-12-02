@@ -7,13 +7,12 @@ export class Clan {
      * @param {string} color
      * @param {boolean} isPrivate
      * @param {string} subServer
-     * @param {string} avatar
      * @param {string} clanPage
      * @param {number} [kills=0]
      * @param {number} [chunks=0]
      * @param {number} [money=0]
      */
-    constructor(name, description, color, isPrivate, subServer, avatar, clanPage, kills, chunks, money) {
+    constructor(name, description, color, isPrivate, subServer, clanPage, kills, chunks, money) {
         if (!kills) {kills = 0}
         if (!chunks) {chunks = 0}
         if (!money) {money = 0}
@@ -26,12 +25,11 @@ export class Clan {
         this._color = color;
         this._isPrivate = isPrivate;
         this._subServer = subServer;
-        this._avatar = avatar;
         this._page = clanPage;
     }
 
     static fromRow(row) {
-        return new Clan(row.name, row.description, row.color, row.isPrivate, row.subServer, row.avatar, row.clanPage, row.kills, row.chunks, row.money)
+        return new Clan(row.name, row.description, row.color, row.isPrivate, row.subServer, row.clanPage, row.kills, row.chunks, row.money)
     }
 
     get name() {
@@ -54,10 +52,6 @@ export class Clan {
         return this._subServer;
     }
 
-    get avatar() {
-        return this._avatar;
-    }
-
     get page() {
         return this._page;
     }
@@ -71,14 +65,10 @@ export class Clan {
     get money() {
         return this._money
     }
-    get name() {
-        return this._name
-    }
 }
 
 export class DB {
     constructor() {
-        this.criteries = {}
     }
 
     /**
@@ -92,7 +82,6 @@ export class DB {
     }
 
     /**
-     * Возвращает статистику клана
      * @param {string} name
      * @returns {Clan}
      */
@@ -114,7 +103,7 @@ export class WebSQL extends DB{
         super();
         this._db = db;
         this._db.transaction((t)=>{
-            t.executeSql("CREATE TABLE IF NOT EXISTS CLANS (name unique, description, color, isPrivate, subServer, avatar, clanPage, money, kills, chunks)")
+            t.executeSql("CREATE TABLE IF NOT EXISTS CLANS (name unique, description, color, isPrivate, subServer, clanPage, money, kills, chunks)")
         },  console.error)
 
     }
@@ -161,77 +150,6 @@ export class WebSQL extends DB{
     }
 
     async addClan(clan) {
-        await this.executeSQL("INSERT INTO CLANS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [clan.name, clan.description, clan.color, clan.isPrivate, clan.subServer, clan.avatar, clan.clanPage, clan.money, clan.kills, clan.chunks])
-    }
-    // async setClanStats(clanInfo) {
-    //     await this.executeSQL("INSERT INTO CLANS VALUES (?,?,?,?)", [clanInfo.name, clanInfo.money, clanInfo.kills, clanInfo.chunks])
-    // }
-}
-
-/**
- *
- * @param {string=} name
- * @returns {Clan}
- */
-export function genRandomClanInfo(name) {
-    return new Clan(
-        name ? name : "Clan" + makeID(3),
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100)
-    )
-}
-
-export class StubDB extends DB {
-    constructor() {
-        super();
-
-        /** @type {Object.<string, ClanInfo>} */
-        this._clansInfos = {}
-        /** @type {Object.<string, Clan>} */
-        this._clansStats = {}
-
-        //some sample claninfos
-        const sampleInfos = [new ClanInfo("test1", "Описание бла-бла", "rgb(256,256,256)", false, "EW-1", "28129381", ""),
-            new ClanInfo("test2", "О", "rgb(256,256,0)", true, "EW-1", "28129381", ""),
-            new ClanInfo("test2", "de", "rgb(256,256,0)", true, "EW-3", "28129381", "")
-        ]
-        for (let info of sampleInfos) {
-            this._clansInfos[info.name] = info
-        }
-
-        for (let name in this._clansInfos) {
-            let clanInfo = genRandomClanInfo(name)
-            this._clansStats[clanInfo.name] = clanInfo
-        }
-    }
-
-    /** @returns {Clan[]} */
-    async getTopClans(n, criteria) {
-        return Object.values(this._clansStats).sort((a, b) => {
-            switch(criteria) {
-                case "CHUNKS":
-                    return b.chunks - a.chunks
-                case "KILLS":
-                    return b.kills - a.kills
-                case "MONEY":
-                    return b.money - a.money
-                default:
-                    throw new Error("Not supported criteria")
-            }
-        })
-    }
-
-    async createClan(info) {
-        this._clansInfos[info.name] = info
-    }
-
-    async getAllClans() {
-        return Object.values(this._clansInfos)
-    }
-
-    /** @return Clan */
-    async getClan(name) {
-        return this._clansStats[name]
+        await this.executeSQL("INSERT INTO CLANS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [clan.name, clan.description, clan.color, clan.isPrivate, clan.subServer, clan.page, clan.money, clan.kills, clan.chunks])
     }
 }

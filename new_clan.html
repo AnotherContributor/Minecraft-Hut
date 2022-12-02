@@ -19,40 +19,43 @@
     </ul>
 
     <div id="main">
-        <h2>Создание клана</h2>
+        <div id="wrapper">
+            <h2>Создание клана</h2>
 
-        <form id="create-clan-form">
-            <div class="form-field">
-                <label for="name">Название:</label><br>
-                <input id="name" type="text" required>
-            </div>
+            <form id="create-clan-form">
+                <div class="form-field">
+                    <label for="name">Название:</label><br>
+                    <input id="name" type="text" required>
+                </div>
 
-            <div class="form-field">
-                <label for="description">Описание:</label><br>
-                <textarea id="description"></textarea>
-            </div>
-            <p>Цвет: <input type="color" value="#ffffff"></p>
-            <p>Приватный: <input id="is-private" type="checkbox"></p>
-            <p>Подсервер:
-            <input id="subserver" list="server" required >
-            <datalist id="server">
-                <option value="EW-1">
-                <option value="EW-2">
-                <option value="EW-3">
-            </datalist>
-            </p>
+                <div class="form-field">
+                    <label for="description">Описание:</label><br>
+                    <textarea id="description"></textarea>
+                </div>
+                <p>Цвет: <input type="color" value="#ffffff"></p>
+                <p>Приватный: <input id="is-private" type="checkbox"></p>
+                <p>Подсервер:
+                <input id="subserver" list="server" required >
+                <datalist id="server">
+                    <option value="EW-1">
+                    <option value="EW-2">
+                    <option value="EW-3">
+                </datalist>
+                </p>
 
-            <p>Аватарка 64x64px: <input id="avatar" type="file" accept=".png"></p>
-            <p>Страничка клана: <input id="clan-page" type="text"></p>
+                <p>Аватарка 64x64px: <input id="avatar" type="file" accept=".png"></p>
+                <p>Страничка клана: <input id="clan-page" type="text"></p>
 
-            <p>
-                <input id="submit" type="submit" value="Отправить">
-                <input id="clear" type="reset" value="Очистить">
-            </p>
-            <p></p>
-        </form>
+                <p>
+                    <input id="submit" type="submit" value="Отправить">
+                    <input id="clear" type="reset" value="Очистить">
+                </p>
+                <p></p>
+            </form>
+            <input type="button" align="right" id="show-clans" value="Показать таблицу">
+        </div>
     </div>
-    <table id="clans-info" >
+    <table id="clans-info" class="absolute-center" >
 
     </table>
     <script type="module" src="new_clan.js"></script>

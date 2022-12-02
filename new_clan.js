@@ -23,7 +23,7 @@ form.onsubmit = async (e) => {
     e.preventDefault()
     let avatarFile = avatar.files[0]
     let avatarUrl
-    if (avatarFile)  {avatarUrl = window.URL.createObjectURL( avatarFile );}
+    if (avatarFile)  {avatarUrl = document.URL + "/avatar/" + name.value;}
     else {avatarUrl = null}
 
     try {
@@ -33,7 +33,6 @@ form.onsubmit = async (e) => {
             color.value,
             isPrivate.checked,
             subServer.value,
-            avatarUrl,
             clanPage.value
         ))
     } catch (E) {
@@ -58,19 +57,40 @@ avatar.onchange = async (e) => {
     }
 }
 
-const clansTable = document.getElementById("clans-info")
+async function genSqlTableToHtmlTable() {
+    let tableInner = ""
+    let clansRows = (await db.executeSQL("SELECT * FROM CLANS")).rows
+    if (clansRows.length === 0) {
+        return ""
+    }
+    let columns = Object.keys(clansRows[0])
+    tableInner += genTableRow(columns, true)
+    for (let row of clansRows) {
+        tableInner += genTableRow(Object.values(row))
+    }
 
-let tableInner = ""
-
-let clansRows = (await db.executeSQL("SELECT * FROM CLANS")).rows
-let columns = Object.keys(clansRows[0])
-tableInner += genTableRow(columns, true)
-for (let row of clansRows) {
-    tableInner += genTableRow(Object.values(row))
+    return tableInner
 }
 
-clansTable.innerHTML = tableInner
+const clansTable = document.getElementById("clans-info")
+clansTable.style.display = "none"
 
+clansTable.innerHTML = await genSqlTableToHtmlTable()
+
+const showClansButton = document.getElementById("show-clans")
+
+let open = clansTable.style.display !== "none"
+showClansButton.addEventListener("click", async ()=> {
+    console.log(open)
+    if (open) {
+        clansTable.style.display = "none"
+    } else {
+        clansTable.style.display = "table"
+        clansTable.innerHTML = await genSqlTableToHtmlTable()
+    }
+
+    open = !open
+})
 
 
 
